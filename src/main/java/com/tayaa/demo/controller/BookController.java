@@ -36,6 +36,18 @@ public class BookController {
     public List findByTitle(@PathVariable String bookTitle) {
         return bookRepository.findByTitle(bookTitle);
     }
+    
+    @GetMapping("/author/{bookAuthor}")
+    public List findByAuthor(@PathVariable String bookAuthor) {
+        List<Book> books = (List<Book>) this.findAll();
+        List<Book> booksByAuthor = new ArrayList<Book>();
+        for(Book book: books) {
+        	if(book.getAuthor().equals(bookAuthor)) {
+        		booksByAuthor.add(book);
+        	}
+        }
+        return booksByAuthor;
+    }
 
     @GetMapping("/{id}")
     public Book findOne(@PathVariable Long id) {
